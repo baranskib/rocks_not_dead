@@ -130,3 +130,12 @@ dmypy.json
 
 .idea
 .cache
+*.aws
+.aws
+/.tf/variables.tf
+/.tf/terraform.tfstate
+/.tf/terraform.tfstate.backup
+/.tf/.terraform.lock.hcl
+/.tf/.terraform/
+/payload.zip
+/lambda_payloads/
