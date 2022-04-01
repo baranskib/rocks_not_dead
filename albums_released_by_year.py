@@ -53,17 +53,21 @@ def get_albums_release_year_and_name(category_id: str):
                 raise Exception('No values returned from Spotify API')
             playlist_items = playlist['tracks']['items']
             for item in playlist_items:
-                key = item['track']['album']['release_date'][:4] + \
-                      item['track']['album']['name'] + \
-                      item['track']['artists'][0]['name']
-                if key not in data_written:
-                    data_written.append(key)
-                    writer.writerow({
-                        'Year Released': item['track']['album']['release_date'][:4],
-                        'Album Name': item['track']['album']['name'],
-                        'Artist Name': item['track']['artists'][0]['name']
+                # TODO: handle empty records more gracefully
+                if not item['track']:
+                    print(item)
+                else:
+                    key = item['track']['album']['release_date'][:4] + \
+                          item['track']['album']['name'] + \
+                          item['track']['artists'][0]['name']
+                    if key not in data_written:
+                        data_written.append(key)
+                        writer.writerow({
+                            'Year Released': item['track']['album']['release_date'][:4],
+                            'Album Name': item['track']['album']['name'],
+                            'Artist Name': item['track']['artists'][0]['name']
 
-                    })
+                        })
     s3_resource = boto3.resource('s3')
     date = datetime.now()
     filename = f'{date.year}/{date.month}/{date.day}/' + category_id + '_albums_data.csv'
