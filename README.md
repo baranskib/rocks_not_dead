@@ -12,6 +12,11 @@
 ## Introduction 
 
 This was made as a PoC for using Python, Terraform, AWS Lambda and AWS S3. 
+
+General flow:
+
+Terraform -> AWS Lambda -> Spotify API -> Data Load and Processing -> Data Lake (AWS S3).
+
 This takes 12 rock playlists and 12 rap playlists and gathers the data on the albums - year released, name and artist. 
 The idea is to gather data weekly to perform BI analytics to see the trend if rock is really dead.
 
